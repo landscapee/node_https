@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>it's my h5 dist2</p>
+<!--<script src="./qwe.js"></script>-->
+<script>
+    'use strict'
+    throw('sss')
+     function Person (name){
+        this.name=name
+     }
+     class woman extends Person{
+        constructor() {
+            super('qq')
+            this.fav='nan'
+        }
+     }
+
+    console.log(new woman());
+
+
+    let s
+    let p1=Promise.resolve().then(()=>{return new Promise(resolve=>{setTimeout(()=>{s=resolve},5000)})})
+    p1.then((d)=>{
+        console.log(1,d);
+    }).then((d)=>{
+        console.log(2,d);
+        return 12
+    }).then((d)=>{
+        console.log(3,d);
+        return 13
+    }).then((d)=>{
+        console.log(4,d);
+        return 14
+    })
+
+</script>
+</body>
+</html>

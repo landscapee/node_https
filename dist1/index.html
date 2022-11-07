@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            background: #1D1F20;
+        }
+        #box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 600px;
+            height: 200px;
+            color: white;
+            font-family: 'Raleway';
+            font-size: 2.5rem;
+        }
+        .gradient-border {
+            --borderWidth: 3px;
+            background: #1D1F20;
+            position: relative;
+            border-radius: var(--borderWidth);
+
+
+        }
+        .gradient-border:after {
+            content: '';
+            position: absolute;
+            top: calc(-1 * var(--borderWidth));
+            left: calc(-1 * var(--borderWidth));
+            height: calc(100% + var(--borderWidth) * 2);
+            width: calc(100% + var(--borderWidth) * 2);
+            background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+            border-radius: calc(2 * var(--borderWidth));
+            z-index: -2;
+            animation: animatedgradient 3s ease alternate infinite;
+            background-size: 200% 200%;
+        }
+
+
+        @keyframes animatedgradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 50% 100%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        .gradientBack{
+            --borderWidth: 3px;
+            margin: 10px;
+             position: relative;
+            border-radius: var(--borderWidth);
+            height: 200px;
+            width: 500px;
+            background: #fff;
+            position: relative;
+        }
+        .gradientBack:after {
+            content: '';
+            position: absolute;
+            top: calc(-1 * var(--borderWidth));
+            left: calc(-1 * var(--borderWidth));
+            height: calc(100% + var(--borderWidth) * 2);
+            width: calc(100% + var(--borderWidth) * 2);
+            background: linear-gradient(0deg, #fff,  #07b39b );
+            border-radius: calc(2 * var(--borderWidth));
+            z-index: -2;
+            animation: animatedgradient 3s ease alternate infinite;
+            background-size: 200% 200%;
+        }
+        .gradientBackvar{
+            border: 1px red solid;
+            width: 100px;
+            height: 100px;
+            border-radius:  calc(20 * var(--borderWidth));
+
+        }
+    </style>
+</head>
+<body>
+<div class="gradientBack">
+    <div class="gradientBackvar"></div>
+</div>
+<div class="gradient-border" id="box">动画 <br>CSS<br>渐变边框</div></body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<button onclick="qingqiu()">tija</button>
+<script>
+	let Vue={}
+    Vue.prototype.resetSetItem = (key, newVal) => {
+        if (key === 'websocketHistory') {
+            // 创建一个StorageEvent事件
+            let newStorageEvent = document.createEvent('StorageEvent');
+            const storage = {
+                setItem: (k, val) => {
+                    localStorage.setItem(k, val);
+                    // 初始化创建的事件
+                    newStorageEvent.initStorageEvent('setItem', false, false, k, null, val, null, null);
+                    // 派发对象
+                    window.dispatchEvent(newStorageEvent);
+                }
+            };
+            return storage.setItem(key, newVal);
+        }
+    };
+	function request(obj,blo=true) {
+        return new Promise((resolve ,reject)=>{
+            let  xhr
+            if(window.XMLHttpRequest){
+                xhr=new XMLHttpRequest();
+            }else if(window.ActiveObject){//兼容IE6以下版本
+                xhr=new ActiveXobject('Microsoft.xhr');
+            }
+            let postData=null
+            if (obj.method === 'POST'||obj.method === 'post') {
+                obj.method='POST'
+                xhr.open(obj.method, obj.url, blo);
+                xhr.setRequestHeader('Content-Type', obj.ContentType||"application/json;charset=utf-8"); //而POST请求需要设置请求头，用来传递参数
+
+            } else if (obj.method === 'GET'||obj.method === 'get') {
+                obj.method="GET"
+                postData = obj.url.indexOf("?") >= 0 ? "&" + postData : "?" + postData; //GET请求，参数是拼接到url上面；
+                xhr.open(obj.method, obj.url + postData, blo);
+                postData = null; //重置参数
+            }
+             xhr.onreadystatechange = function(data) {
+                if(xhr.readyState == 4 ){
+                    if ( xhr.status == 200 || xhr.status == 304) {
+                        resolve(xhr.responseText)
+                    }else{
+                        reject(xhr.responseText)
+                    }
+				}
+
+            };
+            xhr.send(JSON.stringify(obj.data)||null)
+		})
+
+    }
+    function qingqiu() {
+        request({
+			url:'http://192.168.4.231:6789/sms.do',
+			method:'post',
+			data:{a:1}
+		}).then((d)=>{
+            console.log(d);
+        }).catch(d=>{
+            console.log(d);
+        })
+    }
+</script>
+</body>
+</html>
